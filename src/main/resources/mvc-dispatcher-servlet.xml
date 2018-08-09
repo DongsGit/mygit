@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <import resource="applicationContext-dao.xml"/>
+    <import resource="applicationContext-service.xml"/>
+
+    <!--2 配置HandlerMapping-->
+    <!--不会将url最后的后缀截取-->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">-->
+    <!--<property name="useSuffixPatternMatch" value="false"/>-->
+    <!--</bean>-->
+
+    <mvc:annotation-driven conversion-service="conversionService">
+
+        <!--消息转换器 告诉springMVC我们方法返回值返回什么格式-->
+
+            <mvc:message-converters>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name="defaultCharset" value="UTF-8"/>
+                </bean>
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4"/>
+            </mvc:message-converters>
+
+    </mvc:annotation-driven>
+
+
+
+    <!--3 配置HandlerAdapter-->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>-->
+
+    <!--4 配置Handler-->
+    <context:component-scan base-package="com.wxd.mvcdemo.controller"/>
+
+
+    <!--5 配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"></property>
+        <property name="suffix" value=".jsp"/>
+
+        <!--6 视图渲染技术-->
+        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
+    </bean>
+
+
+    <!--静态资源-->
+    <!--<mvc:default-servlet-handler/>-->
+    <!--<mvc:resources mapping="/images/**" location="/WEB-INF/images/"/>-->
+    <!--<mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>-->
+    <!--<mvc:resources mapping="/css/**" location="/WEB-INF/css/"/>-->
+
+
+
+
+    <!--用来管理自定义的formatter和converter-->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <!--<property name="formatters">-->
+        <!--<set>-->
+        <!--<bean class="org.itany.formatter.String2DateFormatter">-->
+        <!--<constructor-arg value="yyyy-mm-dd"></constructor-arg>-->
+        <!--</bean>-->
+        <!--</set>-->
+        <!--</property>-->
+
+        <property name="converters">
+            <set>
+                <bean class="com.wxd.mvcdemo.converter.String2DateConverter">
+                    <constructor-arg value="yyyy-mm-dd"></constructor-arg>
+                </bean>
+            </set>
+        </property>
+    </bean>
+
+    <!--自定义拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/url/**"/>
+            <bean class="com.wxd.mvcdemo.interceptors.ControllerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+
+</beans>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxd.mvcdemo.mapper.EmpInfoMapper">
+  <resultMap id="BaseResultMap" type="com.wxd.mvcdemo.entity.EmpInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="SIGN_NAME" jdbcType="VARCHAR" property="signName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from emp_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wxd.mvcdemo.entity.EmpInfo">
+    insert into emp_info (ID, USER_NAME, SEX, 
+      CITY, SIGN_NAME)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{signName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wxd.mvcdemo.entity.EmpInfo">
+    update emp_info
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      SIGN_NAME = #{signName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID, USER_NAME, SEX, CITY, SIGN_NAME
+    from emp_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, USER_NAME, SEX, CITY, SIGN_NAME
+    from emp_info
+  </select>
+</mapper>
