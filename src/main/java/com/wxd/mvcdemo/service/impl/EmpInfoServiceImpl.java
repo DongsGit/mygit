@@ -19,4 +19,10 @@ public class EmpInfoServiceImpl implements EmpInfoService {
     public List<EmpInfo> list() {
         return mapper.selectAll();
     }
+
+    @Override
+    public int countEmpInfo() {
+        int i = mapper.countEmpInfo();
+        return i;
+    }
 }

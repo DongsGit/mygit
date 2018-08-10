@@ -35,4 +35,7 @@
     select ID, USER_NAME, SEX, CITY, SIGN_NAME
     from emp_info
   </select>
+  <select id="countEmpInfo" resultType="INTEGER" >
+    SELECT COUNT(id) from emp_info;
+  </select>
 </mapper>

@@ -115,6 +115,14 @@
       <artifactId>mybatis</artifactId>
       <version>${mybatis.version}</version>
     </dependency>
+
+    <!--Mybatis分页-->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+
     <!--spring和mybatis整合-->
     <dependency>
       <groupId>org.mybatis</groupId>

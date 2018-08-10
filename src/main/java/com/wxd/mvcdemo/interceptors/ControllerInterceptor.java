@@ -27,7 +27,7 @@ public class ControllerInterceptor implements HandlerInterceptor {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
             Class<?> declaringClass = method.getDeclaringClass();
-            LOGGER.info(declaringClass.getName() + "--" + method.getName());
+//            LOGGER.info(declaringClass.getName() + "--" + method.getName());
         }
 
         HttpSession session = request.getSession();
@@ -36,17 +36,17 @@ public class ControllerInterceptor implements HandlerInterceptor {
         //根据用户名去数据库查询权限
 
 
-        LOGGER.info("preHandle");
+//        LOGGER.info("preHandle");
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        LOGGER.info("postHandle");
+//        LOGGER.info("postHandle");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        LOGGER.info("afterCompletion ex:" + ex);
+//        LOGGER.info("afterCompletion ex:" + ex);
     }
 }

@@ -13,4 +13,6 @@ public interface EmpInfoMapper {
     List<EmpInfo> selectAll();
 
     int updateByPrimaryKey(EmpInfo record);
+
+    int countEmpInfo();
 }
